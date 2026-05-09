@@ -77,20 +77,35 @@ export async function GET(
     );
   }
 
-  // TODO: In production, generate the actual OAuth authorization URL
-  // with proper client_id, redirect_uri, state, and PKCE code_challenge
-  //
-  // const config = PLATFORM_OAUTH_CONFIGS[platform];
-  // const state = crypto.randomUUID(); // Store in session for CSRF protection
-  // const authorizationUrl = new URL(config.authUrl);
-  // authorizationUrl.searchParams.set("client_id", process.env[`${platform.toUpperCase()}_CLIENT_ID`]!);
-  // authorizationUrl.searchParams.set("redirect_uri", `${process.env.NEXT_PUBLIC_APP_URL}/api/social/callback/${platform}`);
-  // authorizationUrl.searchParams.set("scope", config.scopes.join(" "));
-  // authorizationUrl.searchParams.set("state", state);
-  // authorizationUrl.searchParams.set("response_type", "code");
-  // return NextResponse.redirect(authorizationUrl.toString());
+  // Map platform names to their environment variable prefixes
+  const PLATFORM_ENV_KEYS: Record<string, { clientId: string; redirectUri: string }> = {
+    instagram: { clientId: "META_APP_ID", redirectUri: "META_REDIRECT_URI" },
+    facebook: { clientId: "META_APP_ID", redirectUri: "META_REDIRECT_URI" },
+    linkedin: { clientId: "LINKEDIN_CLIENT_ID", redirectUri: "LINKEDIN_REDIRECT_URI" },
+    youtube: { clientId: "GOOGLE_CLIENT_ID", redirectUri: "GOOGLE_REDIRECT_URI" },
+    tiktok: { clientId: "TIKTOK_CLIENT_KEY", redirectUri: "TIKTOK_REDIRECT_URI" },
+    pinterest: { clientId: "PINTEREST_APP_ID", redirectUri: "PINTEREST_REDIRECT_URI" },
+    twitter: { clientId: "TWITTER_CLIENT_ID", redirectUri: "TWITTER_REDIRECT_URI" },
+  };
 
-  // Stub: redirect back to connections page with a message
+  const envKeys = PLATFORM_ENV_KEYS[platform];
+  const clientId = envKeys ? process.env[envKeys.clientId] : undefined;
+  const redirectUri = envKeys ? process.env[envKeys.redirectUri] : undefined;
+  const config = PLATFORM_OAUTH_CONFIGS[platform];
+
+  // If we have real credentials, build the actual OAuth URL
+  if (clientId && redirectUri && !clientId.startsWith("xxxx")) {
+    const state = crypto.randomUUID();
+    const authorizationUrl = new URL(config.authUrl);
+    authorizationUrl.searchParams.set("client_id", clientId);
+    authorizationUrl.searchParams.set("redirect_uri", redirectUri);
+    authorizationUrl.searchParams.set("scope", config.scopes.join(" "));
+    authorizationUrl.searchParams.set("state", state);
+    authorizationUrl.searchParams.set("response_type", "code");
+    return NextResponse.redirect(authorizationUrl.toString());
+  }
+
+  // Fallback: redirect back to connections page for platforms without real credentials
   const redirectUrl = new URL("/settings/connections", request.url);
   redirectUrl.searchParams.set("connect", platform);
   redirectUrl.searchParams.set("status", "pending");

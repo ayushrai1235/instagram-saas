@@ -191,3 +191,116 @@
 .animate-pulse-slow {
   animation: pulse-slow 2.5s ease-in-out infinite;
 }
+
+/* FullCalendar dark theme */
+.social-calendar-shell .fc {
+  --fc-border-color: rgba(255, 255, 255, 0.06);
+  --fc-page-bg-color: transparent;
+  --fc-neutral-bg-color: rgba(255, 255, 255, 0.03);
+  --fc-list-event-hover-bg-color: rgba(255, 255, 255, 0.04);
+  --fc-today-bg-color: rgba(99, 102, 241, 0.1);
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.875rem;
+}
+
+.social-calendar-shell .fc-theme-standard .fc-scrollgrid,
+.social-calendar-shell .fc-theme-standard td,
+.social-calendar-shell .fc-theme-standard th {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.social-calendar-shell .fc-scrollgrid {
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.social-calendar-shell .fc-col-header-cell {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.social-calendar-shell .fc-col-header-cell-cushion {
+  padding: 0.75rem 0.25rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.social-calendar-shell .fc-daygrid-day {
+  background: rgba(255, 255, 255, 0.012);
+  transition: background-color 180ms ease;
+}
+
+.social-calendar-shell .fc-daygrid-day:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.social-calendar-shell .fc-daygrid-day-frame {
+  min-height: 7.5rem;
+  padding: 0.25rem;
+}
+
+.social-calendar-shell .fc-daygrid-day-number {
+  padding: 0.5rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.social-calendar-shell .fc-day-other .fc-daygrid-day-number {
+  color: rgba(255, 255, 255, 0.18);
+}
+
+.social-calendar-shell .fc-day-today .fc-daygrid-day-number {
+  color: #c7d2fe;
+}
+
+.social-calendar-shell .fc-event,
+.social-calendar-shell .fc-daygrid-event {
+  border: 0;
+  border-radius: 0.45rem;
+  box-shadow: none;
+}
+
+.social-calendar-shell .fc-daygrid-event {
+  margin-top: 0.125rem;
+  cursor: pointer;
+}
+
+.social-calendar-shell .fc-event-main {
+  border-radius: 0.45rem;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.social-calendar-shell .social-calendar-event {
+  border-left: 3px solid currentColor;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.social-calendar-shell .social-calendar-event:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.social-calendar-shell .fc-more-link {
+  color: #a5b4fc;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.social-calendar-shell .fc-popover {
+  border-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #151515;
+  color: white;
+}
+
+.social-calendar-shell .fc-popover-header {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.social-calendar-shell .fc-highlight {
+  background: rgba(99, 102, 241, 0.18);
+}
